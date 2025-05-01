@@ -1,0 +1,11 @@
+apiVersion: sources.triggermesh.io/v1alpha1
+kind: WebhookSource
+metadata:
+  name: docker-webhook-source
+spec:
+  eventType: docker.image.push
+  sink:
+    ref:
+      apiVersion: eventing.knative.dev/v1
+      kind: Broker
+      name: default

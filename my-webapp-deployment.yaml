@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-webapp
+  template:
+    metadata:
+      labels:
+        app: my-webapp
+    spec:
+      containers:
+      - name: web-container
+        image: registry.dev.svc.cluster.local:5000/my-webapp:v4
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-webapp
+spec:
+  selector:
+    app: my-webapp
+  ports:
+  - port: 8080
+    targetPort: 8080
+  type: NodePort

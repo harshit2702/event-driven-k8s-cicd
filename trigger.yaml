@@ -1,0 +1,14 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: deployment-update-trigger
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: docker.image.push
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: deployment-updater

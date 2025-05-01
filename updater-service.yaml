@@ -1,0 +1,12 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: deployment-updater
+spec:
+  template:
+    spec:
+      serviceAccountName: deployment-updater-sa
+      containers:
+      - image: registry.dev.svc.cluster.local:5000/deployment-updater:latest
+        name: updater
+        imagePullPolicy: Always
